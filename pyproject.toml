@@ -1,0 +1,23 @@
+[project]
+name = "lang-chain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Joao Pedro", email = "joao.pedro.b.orlando@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "langchain>=1.4.6",
+    "langchain-anthropic>=1.7.6",
+    "langchain-core>=1.6.10",
+    "langgraph>=1.2.15",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+lang-chain = "lang_chain:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
