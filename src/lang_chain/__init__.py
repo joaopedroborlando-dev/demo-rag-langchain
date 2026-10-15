@@ -4,12 +4,13 @@ load_dotenv()
 
 core_version = version("langchain-core")
 lg_version = version("langgraph")
-from langchain_anthropic import ChatAnthropic
 from langchain_ollama import ChatOllama
 
 print(f"langchain_core version {core_version}")
 print(f"langgraph version {lg_version}")
 
+# fase 1 indexing: LOAD -> CHUNCK -> EMBED -> STORE
+# fase 2 quering: QUERY -> SEARCH -> RETRIEVE -> GENERATE/AUGMENT -> ANSWER
 def main():
     llm = ChatOllama(model_name="llama3.2", temperature=0.3)
     response = llm.invoke("Say 'seetup complete!' in one word")
