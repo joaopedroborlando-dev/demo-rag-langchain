@@ -22,6 +22,7 @@ def create_knowledgeBase():
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     documents = load_pdf_file(os.getenv("PDF_PATH"))
     chunks = splitter.split_documents(documents)
+    # para manter local sem perder -> persist_directory="./chroma_db",
     vector_store = Chroma.from_documents(
         documents=chunks,
         embedding=embeddings_model,
@@ -35,6 +36,7 @@ def format_docs(docs):
 # fase 1 indexing: LOAD -> CHUNCK -> EMBED -> STORE
 # fase 2 quering: QUERY -> SEARCH -> RETRIEVE -> GENERATE/AUGMENT -> ANSWER
 def main():
+    #Cria o indexing
     vector_store = create_knowledgeBase()
     retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 2})
     llm = ChatOllama(model="llama3.2", temperature=0.3)
@@ -50,6 +52,7 @@ def main():
         Make sure to answer in a concise manner, and if you don't know the answer, just say "I don't know."
         """
     )
+
     rag_chain = (
         {
             "context": retriever | format_docs, 
@@ -70,9 +73,6 @@ def main():
         print(f"Q: {q}")
         print(f"A: {answer}")
         
-
-
-
 
 if __name__ == "__main__":
     main()

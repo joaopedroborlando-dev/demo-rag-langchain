@@ -21,6 +21,7 @@ def load_text_file():
         os.remove(temp_file_path)
 
 def load_pdf_file(pdf_path: str, extra_metadata: dict | None = None):
+    print(f"PDF path {pdf_path}")
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
     for doc in documents:
