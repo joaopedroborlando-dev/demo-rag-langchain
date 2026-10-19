@@ -20,8 +20,10 @@ def load_text_file():
     finally:
         os.remove(temp_file_path)
 
-def load_pdf_file(pdf_path: str):
+def load_pdf_file(pdf_path: str, extra_metadata: dict | None = None):
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
+    for doc in documents:
+        doc.metadata.update(extra_metadata or {})
     print(f"Loaded {len(documents)}")
-    return
+    return documents
